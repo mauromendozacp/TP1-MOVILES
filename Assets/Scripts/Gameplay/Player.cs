@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 	public int Dinero = 0;
 	public int IdPlayer = 0;
 	
-	public Bolsa[] Bolasas;
+	public Bag[] Bags;
 	int CantBolsAct = 0;
 	public string TagBolsas = "";
 	
@@ -21,55 +21,46 @@ public class Player : MonoBehaviour
 	public ContrTutorial ContrTuto;
 	
 	Visualizacion MiVisualizacion;
-	
-	//------------------------------------------------------------------//
-
-	// Use this for initialization
 	void Start () 
 	{
-		for(int i = 0; i< Bolasas.Length;i++)
-			Bolasas[i] = null;
+		for(int i = 0; i< Bags.Length;i++)
+			Bags[i] = null;
 		
 		MiVisualizacion = GetComponent<Visualizacion>();
 	}
 	
-	// Update is called once per frame
 	void Update () 
 	{
 	
 	}
 	
-	//------------------------------------------------------------------//
-	
-	public bool AgregarBolsa(Bolsa b)
-	{
-		if(CantBolsAct + 1 <= Bolasas.Length)
+	public bool AgregarBolsa(Bag b)
+    {
+        if(CantBolsAct + 1 <= Bags.Length)
 		{
-			Bolasas[CantBolsAct] = b;
+			Bags[CantBolsAct] = b;
 			CantBolsAct++;
 			Dinero += (int)b.Monto;
 			b.Desaparecer();
 			return true;
 		}
-		else
-		{
-			return false;
-		}
-	}
+
+        return false;
+    }
 	
 	public void VaciarInv()
 	{
-		for(int i = 0; i< Bolasas.Length;i++)
-			Bolasas[i] = null;
+		for(int i = 0; i< Bags.Length;i++)
+			Bags[i] = null;
 		
 		CantBolsAct = 0;
 	}
 	
 	public bool ConBolasas()
 	{
-		for(int i = 0; i< Bolasas.Length;i++)
+		for(int i = 0; i< Bags.Length;i++)
 		{
-			if(Bolasas[i] != null)
+			if(Bags[i] != null)
 			{
 				return true;
 			}
@@ -90,39 +81,37 @@ public class Player : MonoBehaviour
 	public void CambiarACalibracion()
 	{
 		MiVisualizacion.CambiarACalibracion();
-		EstAct = Player.Estados.EnCalibracion;
+		EstAct = Estados.EnCalibracion;
 	}
 	
 	public void CambiarATutorial()
 	{
 		MiVisualizacion.CambiarATutorial();
-		EstAct = Player.Estados.EnTutorial;
+		EstAct = Estados.EnTutorial;
 		ContrTuto.Iniciar();
 	}
 	
 	public void CambiarAConduccion()
 	{
 		MiVisualizacion.CambiarAConduccion();
-		EstAct = Player.Estados.EnConduccion;
+		EstAct = Estados.EnConduccion;
 	}
 	
 	public void CambiarADescarga()
 	{
 		MiVisualizacion.CambiarADescarga();
-		EstAct = Player.Estados.EnDescarga;
+		EstAct = Estados.EnDescarga;
 	}
 	
 	public void SacarBolasa()
 	{
-		for(int i = 0; i < Bolasas.Length; i++)
+		for(int i = 0; i < Bags.Length; i++)
 		{
-			if(Bolasas[i] != null)
+			if(Bags[i] != null)
 			{
-				Bolasas[i] = null;
+				Bags[i] = null;
 				return;
 			}				
 		}
 	}
-	
-	
 }

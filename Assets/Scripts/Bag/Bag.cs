@@ -1,10 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-public class Bolsa : MonoBehaviour
+public class Bag : MonoBehaviour
 {
 	public Pallet.Valores Monto;
-	//public int IdPlayer = 0;
 	public string TagPlayer = "";
 	public Texture2D ImagenInventario;
 	Player Pj = null;
@@ -13,21 +12,16 @@ public class Bolsa : MonoBehaviour
 	public GameObject Particulas;
 	public float TiempParts = 2.5f;
 
-	// Use this for initialization
 	void Start () 
 	{
 		Monto = Pallet.Valores.Valor2;
 		
-		
 		if(Particulas != null)
 			Particulas.SetActive(false);
-			
 	}
 	
-	// Update is called once per frame
 	void Update ()
 	{
-		
 		if(Desapareciendo)
 		{
 			TiempParts -= Time.deltaTime;
@@ -48,11 +42,8 @@ public class Bolsa : MonoBehaviour
 		if(coll.tag == TagPlayer)
 		{
 			Pj = coll.GetComponent<Player>();
-			//if(IdPlayer == Pj.IdPlayer)
-			//{
-				if(Pj.AgregarBolsa(this))
-					Desaparecer();
-			//}
+			if(Pj.AgregarBolsa(this))
+				Desaparecer();
 		}
 	}
 	
@@ -68,6 +59,5 @@ public class Bolsa : MonoBehaviour
 		{
 			Particulas.GetComponent<ParticleSystem>().Play();
 		}
-	
 	}
 }

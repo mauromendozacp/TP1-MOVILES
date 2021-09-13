@@ -29,7 +29,6 @@ public class TaxiComp : MonoBehaviour
 	float TempoEntreGiro = 0;
 	
 	public float AngDeGiro = 30;
-	float TiempPGiro = 1;//1 es el tiempo que tarda en llegar al otro quaternion
 	
 	RaycastHit RH;
 	
@@ -43,9 +42,10 @@ public class TaxiComp : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		TiempEntreGiro = (float) Random.Range(TiempCadaCuantoDobla_MaxMin.x, TiempCadaCuantoDobla_MaxMin.y);
-		RotIni = this.transform.localEulerAngles;
-		PosIni = transform.position;
+		TiempEntreGiro = Random.Range(TiempCadaCuantoDobla_MaxMin.x, TiempCadaCuantoDobla_MaxMin.y);
+        Transform transform1 = transform;
+        RotIni = transform1.localEulerAngles;
+		PosIni = transform1.position;
 	}
 	
 	// Update is called once per frame

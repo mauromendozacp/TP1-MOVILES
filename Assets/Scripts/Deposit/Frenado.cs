@@ -6,11 +6,6 @@ public class Frenado : MonoBehaviour
 	public float VelEntrada = 0;
 	public string TagDeposito = "Deposito";
 	
-	ControlDireccion KInput;
-	
-	
-	float DagMax = 15f;
-	float DagIni = 1f;
 	int Contador = 0;
 	int CantMensajes = 10;
 	float TiempFrenado = 0.5f;
@@ -19,7 +14,6 @@ public class Frenado : MonoBehaviour
 	Vector3 Destino;
 	
 	public bool Frenando = false;
-	bool ReduciendoVel = false;
 	
 	//-----------------------------------------------------//
 	
