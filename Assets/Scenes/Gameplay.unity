@@ -25456,7 +25456,7 @@ GameObject:
   - component: {fileID: 13082}
   - component: {fileID: 12392}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameMgr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104790,6 +104790,8 @@ MonoBehaviour:
   - {fileID: 3124}
   - {fileID: 3102}
   - {fileID: 213}
+  playersCount: 0
+  difficulty: 0
 --- !u!1001 &13083
 PrefabInstance:
   m_ObjectHideFlags: 0

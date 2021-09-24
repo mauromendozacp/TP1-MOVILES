@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
 	
 	public float TiempoDeJuego = 60;
 	
-	public enum EstadoJuego{Calibrando, Jugando, Finalizado}
+	public enum EstadoJuego{Menu, Calibrando, Jugando, Finalizado}
 	public EstadoJuego EstAct = EstadoJuego.Calibrando;
 	
 	public PlayerInfo PlayerInfo1 = null;
@@ -41,6 +42,9 @@ public class GameManager : MonoBehaviour
 	public GameObject[] ObjsTuto1;
 	public GameObject[] ObjsTuto2;
 	public GameObject[] ObjsCarrera;
+
+    public int playersCount = 0;
+    public int difficulty = 0;
 	
 	void Awake()
 	{
@@ -49,7 +53,10 @@ public class GameManager : MonoBehaviour
 	
 	void Start()
 	{
-		IniciarCalibracion();
+        if (EstAct == EstadoJuego.Calibrando)
+        {
+            IniciarCalibracion();
+        }
 	}
 	
 	void Update()
@@ -384,5 +391,30 @@ public class GameManager : MonoBehaviour
 		
 		public Player PJ;
 	}
-	
+
+    public void ChangeScene(EstadoJuego estGame)
+    {
+        string sceneName = "";
+
+        switch (estGame)
+        {
+            case EstadoJuego.Menu:
+                sceneName = "Mainmenu";
+				break;
+            case EstadoJuego.Calibrando:
+                sceneName = "Gameplay";
+				break;
+            case EstadoJuego.Jugando:
+                sceneName = "Gameplay";
+				break;
+            case EstadoJuego.Finalizado:
+                sceneName = "Gameover";
+				break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(estGame), estGame, null);
+        }
+
+        EstAct = estGame;
+        SceneManager.LoadScene(sceneName);
+	}
 }
