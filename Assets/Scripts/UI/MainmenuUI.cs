@@ -10,7 +10,7 @@ public class MainmenuUI : MonoBehaviour
 
     public void Start()
     {
-        GameManager.Instancia.EstAct = GameManager.EstadoJuego.Menu;
+        GameManager.Instancia.inMenu = true;
     }
 
     public void PlayGame(int difficulty)

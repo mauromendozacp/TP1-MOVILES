@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 	
 	public float TiempoDeJuego = 60;
 	
-	public enum EstadoJuego{Menu, Calibrando, Jugando, Finalizado}
+	public enum EstadoJuego{Calibrando, Jugando, Finalizado}
 	public EstadoJuego EstAct = EstadoJuego.Calibrando;
 	
 	public PlayerInfo PlayerInfo1 = null;
@@ -43,110 +43,106 @@ public class GameManager : MonoBehaviour
 	public GameObject[] ObjsTuto2;
 	public GameObject[] ObjsCarrera;
 
-    public int playersCount = 0;
-    public int difficulty = 0;
+    public int playersCount = 1;
+    public int difficulty = 1;
+    public bool inMenu = false;
 	
 	void Awake()
 	{
 		Instancia = this;
 	}
 	
-	void Start()
-	{
-        if (EstAct == EstadoJuego.Calibrando)
-        {
-            IniciarCalibracion();
-        }
-	}
-	
 	void Update()
 	{
-		if(Input.GetKey(KeyCode.Mouse1) &&
-		   Input.GetKey(KeyCode.Keypad0))
-		{
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
+        if (!inMenu)
+        {
+            if(Input.GetKey(KeyCode.Mouse1) &&
+               Input.GetKey(KeyCode.Keypad0))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
 		
-		if(Input.GetKeyDown(KeyCode.Escape))
-		{
-			Application.Quit();
-		}
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
 
-		switch (EstAct)
-		{
-		case EstadoJuego.Calibrando:
-			if(Input.GetKey(KeyCode.Mouse0) &&
-			   Input.GetKey(KeyCode.Keypad0))
-			{
-				if(PlayerInfo1 != null && PlayerInfo2 != null)
-				{
-					FinCalibracion(0);
-					FinCalibracion(1);
+            switch (EstAct)
+            {
+                case EstadoJuego.Calibrando:
+                    if(Input.GetKey(KeyCode.Mouse0) &&
+                       Input.GetKey(KeyCode.Keypad0))
+                    {
+                        if(PlayerInfo1 != null && PlayerInfo2 != null)
+                        {
+                            FinCalibracion(0);
+                            FinCalibracion(1);
 					
-					FinTutorial(0);
-					FinTutorial(1);
-				}
-			}
+                            FinTutorial(0);
+                            FinTutorial(1);
+                        }
+                    }
 
-            if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W)) {
-                PlayerInfo1 = new PlayerInfo(0, Player1);
-                PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                SetPosicion(PlayerInfo1);
+                    if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W)) {
+                        PlayerInfo1 = new PlayerInfo(0, Player1);
+                        PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                        SetPosicion(PlayerInfo1);
+                    }
+
+                    if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow)) {
+                        PlayerInfo2 = new PlayerInfo(1, Player2);
+                        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+                        SetPosicion(PlayerInfo2);
+                    }
+			
+                    if(PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
+                    {
+                        if(PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+                        {
+                            EmpezarCarrera();
+                        }
+                    }
+			
+                    break;
+			
+			
+                case EstadoJuego.Jugando:
+			
+                    if(Input.GetKey(KeyCode.Mouse1) && 
+                       Input.GetKey(KeyCode.Keypad0))
+                    {
+                        TiempoDeJuego = 0;
+                    }
+			
+                    if(TiempoDeJuego <= 0)
+                    {
+                        FinalizarCarrera();
+                    }
+                    if(ConteoRedresivo)
+                    {
+                        ConteoParaInicion -= T.GetDT();
+                        if(ConteoParaInicion < 0)
+                        {
+                            EmpezarCarrera();
+                            ConteoRedresivo = false;
+                        }
+                    }
+                    else
+                    {
+                        TiempoDeJuego -= T.GetDT();
+                    }
+			
+                    break;
+			
+			
+                case EstadoJuego.Finalizado:
+                    TiempEspMuestraPts -= Time.deltaTime;
+                    if(TiempEspMuestraPts <= 0)
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+                    break;		
             }
-
-            if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow)) {
-                PlayerInfo2 = new PlayerInfo(1, Player2);
-                PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                SetPosicion(PlayerInfo2);
-            }
-			
-			if(PlayerInfo1.PJ != null && PlayerInfo2.PJ != null)
-			{
-				if(PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
-				{
-					EmpezarCarrera();
-				}
-			}
-			
-			break;
-			
-			
-		case EstadoJuego.Jugando:
-			
-			if(Input.GetKey(KeyCode.Mouse1) && 
-			   Input.GetKey(KeyCode.Keypad0))
-			{
-				TiempoDeJuego = 0;
-			}
-			
-			if(TiempoDeJuego <= 0)
-			{
-				FinalizarCarrera();
-			}
-			if(ConteoRedresivo)
-			{
-				ConteoParaInicion -= T.GetDT();
-				if(ConteoParaInicion < 0)
-				{
-					EmpezarCarrera();
-					ConteoRedresivo = false;
-				}
-			}
-			else
-			{
-				TiempoDeJuego -= T.GetDT();
-			}
-			
-			break;
-			
-			
-		case EstadoJuego.Finalizado:
-			TiempEspMuestraPts -= Time.deltaTime;
-			if(TiempEspMuestraPts <= 0)
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-            break;		
-		}
+        }
 	}
 	
 	void OnGUI()
@@ -398,9 +394,6 @@ public class GameManager : MonoBehaviour
 
         switch (estGame)
         {
-            case EstadoJuego.Menu:
-                sceneName = "Mainmenu";
-				break;
             case EstadoJuego.Calibrando:
                 sceneName = "Gameplay";
 				break;
