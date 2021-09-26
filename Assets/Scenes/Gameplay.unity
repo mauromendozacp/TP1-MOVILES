@@ -104752,8 +104752,13 @@ MonoBehaviour:
     PJ: {fileID: 0}
   Player1: {fileID: 13058}
   Player2: {fileID: 27660010}
-  objetosApagarFacil: []
-  objetosApagarNormal: []
+  objetosApagarFacil:
+  - {fileID: 2025}
+  - {fileID: 2082}
+  - {fileID: 1667}
+  - {fileID: 177}
+  objetosApagarNormal:
+  - {fileID: 177}
   objetosApagarDificil: []
   mg: {fileID: 0}
   p2Objects:

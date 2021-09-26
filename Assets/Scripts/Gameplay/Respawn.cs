@@ -65,7 +65,7 @@ public class Respawn : MonoBehaviour
 	{
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		
-		gameObject.SendMessage("SetGiro", 0f);
+		//gameObject.SendMessage("SetGiro", 0f);
 		
 		if(CPAct.Habilitado())
 		{
@@ -105,7 +105,7 @@ public class Respawn : MonoBehaviour
 	{
 		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		
-		gameObject.SendMessage("SetGiro", 0f);
+		//gameObject.SendMessage("SetGiro", 0f);
 		
 		transform.position = pos;
 		transform.forward = dir;
