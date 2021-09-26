@@ -81,7 +81,7 @@ public class Visualizacion : MonoBehaviour
 	
 	void OnGUI()
 	{	
-		switch(Pj.EstAct)
+		/*switch(Pj.EstAct)
 		{
 		case Player.Estados.EnConduccion:
 			SetInv3();
@@ -105,7 +105,7 @@ public class Visualizacion : MonoBehaviour
 			break;
 		}
 		
-		GUI.skin = null;
+		GUI.skin = null;*/
 	}
 
 	public void CambiarACalibracion()
@@ -220,48 +220,6 @@ public class Visualizacion : MonoBehaviour
 		GUI.Box(R, "$" + PrepararNumeros(Pj.Dinero));
 	}
 	
-	void SetCalibr()
-	{
-		GUI.skin = GS_TutoCalib;
-		
-		R.width = ReadyEsc.x *Screen.width /100;
-		R.height = ReadyEsc.y *Screen.height /100;
-		R.x = ReadyPos.x *Screen.width /100;
-		R.y = ReadyPos.y *Screen.height /100;
-		if(LadoAct == Visualizacion.Lado.Der)
-			R.x = (Screen.width) - R.x - R.width;
-		
-		switch(Pj.ContrCalib.EstAct)
-		{
-		case ContrCalibracion.Estados.Calibrando:
-			GS_TutoCalib.box.normal.background = ImaEnPosicion;			
-			GUI.Box(R,"");
-			
-			break;
-			
-		case ContrCalibracion.Estados.Tutorial:
-			TempoIntTuto += T.GetDT();
-			if(TempoIntTuto >= Intervalo)
-			{
-				TempoIntTuto = 0;
-				if(EnCurso + 1 < ImagenesDelTuto.Length)
-					EnCurso++;
-				else
-					EnCurso = 0;
-			}
-			GS_TutoCalib.box.normal.background = ImagenesDelTuto[EnCurso];
-			GUI.Box(R,"");
-			
-			break;
-			
-		case ContrCalibracion.Estados.Finalizado:
-			GS_TutoCalib.box.normal.background = ImaReady;
-			GUI.Box(R,"");
-			
-			break;
-		}
-	}
-	
 	void SetTuto()
 	{
 		if(Pj.ContrTuto.Finalizado)
@@ -301,36 +259,6 @@ public class Visualizacion : MonoBehaviour
 		GUI.Box(R,"");
 		
 		GUIUtility.RotateAroundPivot(angulo*(-1), centro);
-	}
-	
-	void SetInv2()
-	{
-		GUI.skin = GS_Inv;
-		
-		R.width = FondoEsc.x * Screen.width /100;
-		R.height = FondoEsc.y * Screen.width /100;
-		R.x = FondoPos[0].x * Screen.width /100;
-		R.y = FondoPos[0].y * Screen.height /100;
-		
-		int contador = 0;
-		for(int i = 0; i < 3; i++)
-		{
-			if(Pj.Bags[i]!=null)
-				contador++;
-		}
-		
-		if(LadoAct == Visualizacion.Lado.Der)
-		{
-			//R.x = (Screen.width) - R.x - R.width;
-			R.x = FondoPos[1].x * Screen.width /100;
-			GS_Inv.box.normal.background = TextInvDer[contador];
-		}
-		else
-		{
-			GS_Inv.box.normal.background = TextInvIzq[contador];
-		}
-		
-		GUI.Box(R,"");
 	}
 	
 	void SetInv3()

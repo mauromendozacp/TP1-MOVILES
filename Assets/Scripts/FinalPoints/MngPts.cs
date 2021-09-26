@@ -94,7 +94,7 @@ public class MngPts : MonoBehaviour
 		}
 	}
 	
-	void OnGUI()
+	/*void OnGUI()
 	{
 		if(ActivadoAnims)
 		{
@@ -103,7 +103,7 @@ public class MngPts : MonoBehaviour
 		}
 		
 		GUI.skin = null;
-	}
+	}*/
 
 	void SetGanador()
 	{

@@ -294,10 +294,10 @@ public class GameManager : MonoBehaviour
 
     void SetPosicion(PlayerInfo pjInf)
     {
-        pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
+        //pjInf.PJ.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct);
         pjInf.PJ.ContrCalib.IniciarTesteo();
 
-        if (pjInf.PJ == Player1)
+        /*if (pjInf.PJ == Player1)
         {
             Player2.GetComponent<Visualizacion>().SetLado(pjInf.LadoAct == Visualizacion.Lado.Izq
                 ? Visualizacion.Lado.Der
@@ -309,7 +309,7 @@ public class GameManager : MonoBehaviour
                 Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Der);
             else
                 Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
-        }
+        }*/
 
     }
 
