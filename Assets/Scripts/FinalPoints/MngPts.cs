@@ -4,19 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class MngPts : MonoBehaviour 
 {
-	Rect R = new Rect();
-	
 	public float TiempEmpAnims = 2.5f;
 	float Tempo = 0;
 	
 	public Vector2[] DineroPos;
 	public Vector2 DineroEsc;
-	public GUISkin GS_Dinero;
 	
 	public Vector2 GanadorPos;
 	public Vector2 GanadorEsc;
-	public Texture2D[] Ganadores;
-	public GUISkin GS_Ganador;
 	
 	public GameObject Fondo;
 	
@@ -28,8 +23,6 @@ public class MngPts : MonoBehaviour
 	bool PrimerImaParp = true;
 	
 	public bool ActivadoAnims = false;
-	
-	Visualizacion Viz = new Visualizacion();
 
 	void Start () 
 	{		
@@ -55,7 +48,7 @@ public class MngPts : MonoBehaviour
 		}
         if(Input.GetKeyDown(KeyCode.Backspace))
 		{
-			SceneManager.LoadScene(3);
+			//SceneManager.LoadScene(3);
 		}		
 		
 		
@@ -107,7 +100,7 @@ public class MngPts : MonoBehaviour
 
 	void SetGanador()
 	{
-		switch(DatosPartida.LadoGanadaor)
+		/*switch(DatosPartida.LadoGanadaor)
 		{
 		case DatosPartida.Lados.Der:
 			GS_Ganador.box.normal.background = Ganadores[1];
@@ -118,55 +111,9 @@ public class MngPts : MonoBehaviour
 			GS_Ganador.box.normal.background = Ganadores[0];
 			
 			break;
-		}
+		}*/
 	}
 	
-	void SetDinero()
-	{
-		GUI.skin = GS_Dinero;
-		
-		R.width = DineroEsc.x * Screen.width/100;
-		R.height = DineroEsc.y * Screen.height/100;
-		
-		R.x = DineroPos[0].x * Screen.width/100;
-		R.y = DineroPos[0].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Izq)
-		{
-			if(!PrimerImaParp)
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
-		R.x = DineroPos[1].x * Screen.width/100;
-		R.y = DineroPos[1].y * Screen.height/100;
-		
-		if(DatosPartida.LadoGanadaor == DatosPartida.Lados.Der)
-		{
-			if(!PrimerImaParp)
-				GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsGanador));
-		}
-		else
-		{
-			GUI.Box(R, "$" + Viz.PrepararNumeros(DatosPartida.PtsPerdedor));
-		}
-		
-	}
-	
-	void SetCartelGanador()
-	{
-		GUI.skin = GS_Ganador;
-		
-		R.width = GanadorEsc.x * Screen.width/100;
-		R.height = GanadorEsc.y * Screen.height/100;
-		R.x = GanadorPos.x * Screen.width/100;
-		R.y = GanadorPos.y * Screen.height/100;
-		
-        GUI.Box(R, "");
-	}
 	
 	public void DesaparecerGUI()
 	{

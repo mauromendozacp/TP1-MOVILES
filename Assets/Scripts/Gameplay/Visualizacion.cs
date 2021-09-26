@@ -56,7 +56,6 @@ public class Visualizacion : MonoBehaviour
 	public Texture2D[] ImagenesDelTuto;
 	public float Intervalo = 0.8f;
 	float TempoIntTuto = 0;
-	int EnCurso = -1;
 	public Texture2D ImaEnPosicion;
 	public Texture2D ImaReady;
 	public GUISkin GS_TutoCalib;	

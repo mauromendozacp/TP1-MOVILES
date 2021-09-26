@@ -32,8 +32,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < UIGame.Length; i++)
-            UIGame[i].SetActive(true);
         for (int i = 0; i < UIDescarga.Length; i++)
             UIDescarga[i].SetActive(false);
 
@@ -116,5 +114,11 @@ public class UIManager : MonoBehaviour
             spriteIzq.sprite = spritesCargaIzq[sprite];
         else if (l == (int)Lado.Der)
             spriteDer.sprite = spritesCargaDer[sprite];
+    }
+
+    public void ActiveUI()
+    {
+        for (int i = 0; i < UIGame.Length; i++)
+            UIGame[i].SetActive(true);
     }
 }

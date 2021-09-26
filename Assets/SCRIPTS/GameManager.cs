@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject[] objetosApagarDificil;
 
     [SerializeField] GameSettings mg;
+    [SerializeField] UIManager uiManager;
 
     [SerializeField] GameObject[] p2Objects;
 
@@ -109,6 +110,9 @@ public class GameManager : MonoBehaviour
             camp1Entrega.rect = new Rect(0f, 0f, 1f, 1f);
             camp1Cond.rect = new Rect(0f, 0f, 1f, 1f);
         }
+
+        GameSettings.Instancia.p1 = Player1;
+        GameSettings.Instancia.p2 = Player2;
     }
 
     void Update()
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
                 {
                     PlayerInfo1 = new PlayerInfo(0, Player1);
                     PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+                    Player1.lado = Player.Lado.Izq;
                     SetPosicion(PlayerInfo1);
                 }
                 if (GameSettings.Instancia.playersCount == 2)
@@ -154,6 +159,7 @@ public class GameManager : MonoBehaviour
                     {
                         PlayerInfo2 = new PlayerInfo(1, Player2);
                         PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+                        Player2.lado = Player.Lado.Der;
                         SetPosicion(PlayerInfo2);
                     }
                 }
@@ -310,7 +316,6 @@ public class GameManager : MonoBehaviour
             else
                 Player1.GetComponent<Visualizacion>().SetLado(Visualizacion.Lado.Izq);
         }*/
-
     }
 
     public void FinTutorial(int playerID)
@@ -414,6 +419,8 @@ public class GameManager : MonoBehaviour
         Player2.transform.forward = Vector3.forward;
 
         EstAct = EstadoJuego.Jugando;
+
+        uiManager.ActiveUI();
     }
 
     [System.Serializable]

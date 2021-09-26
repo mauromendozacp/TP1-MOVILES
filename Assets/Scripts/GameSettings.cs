@@ -14,8 +14,21 @@ public class GameSettings : MonoBehaviourSingleton<GameSettings>
         Finalizado
     }
 
+    public Player p1;
+    public Player p2;
+
     public int playersCount = 1;
     public int difficulty = 1;
+    public float puntosP1;
+    public float puntosP2;
+
+    void Update()
+    {
+        if (p1 != null)
+            puntosP1 = p1.Dinero;
+        if (p2 != null)
+            puntosP2 = p2.Dinero;
+    }
 
     public void ChangeScene(EstadoJuego2 estGame)
     {

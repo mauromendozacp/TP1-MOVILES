@@ -38,7 +38,7 @@ public class Inventario : MonoBehaviour
 	void OnGUI()
 	{
 		
-		switch(Pj.EstAct)
+		/*switch(Pj.EstAct)
 		{
 		case Player.Estados.EnConduccion:
 			GUI.skin = GS;
@@ -81,7 +81,7 @@ public class Inventario : MonoBehaviour
 			}
 			GUI.skin = null;
 				break;
-		}
+		}*/
 		
 		
 	}
