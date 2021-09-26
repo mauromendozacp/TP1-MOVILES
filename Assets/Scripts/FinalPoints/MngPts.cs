@@ -42,7 +42,7 @@ public class MngPts : MonoBehaviour
 		   Input.GetKeyDown(KeyCode.Return) ||
 		   Input.GetKeyDown(KeyCode.Mouse0))
 		{
-            SceneManager.LoadScene(0);
+            GameSettings.Instancia.ChangeScene(GameSettings.EstadoJuego2.Menu);
 		}
         if(Input.GetKeyDown(KeyCode.Mouse1) ||
            Input.GetKeyDown(KeyCode.Keypad0))
@@ -62,7 +62,7 @@ public class MngPts : MonoBehaviour
 		TiempEspReiniciar -= Time.deltaTime;
 		if(TiempEspReiniciar <= 0 )
 		{
-            SceneManager.LoadScene(0);
+            GameSettings.Instancia.ChangeScene(GameSettings.EstadoJuego2.Menu);
 		}
 		
 		if(ActivadoAnims)

@@ -8,20 +8,15 @@ public class MainmenuUI : MonoBehaviour
     [SerializeField] private GameObject creditsPanel = null;
     [SerializeField] private GameObject difficultyPanel = null;
 
-    public void Start()
-    {
-        GameManager.Instancia.inMenu = true;
-    }
-
     public void PlayGame(int difficulty)
     {
-        GameManager.Instancia.difficulty = difficulty;
-        GameManager.Instancia.ChangeScene(GameManager.EstadoJuego.Calibrando);
+        GameSettings.Instancia.difficulty = difficulty;
+        GameSettings.Instancia.ChangeScene(GameSettings.EstadoJuego2.Jugando);
     }
 
     public void SelectDifficulty(int playersCount)
     {
-        GameManager.Instancia.playersCount = playersCount;
+        GameSettings.Instancia.playersCount = playersCount;
 
         menuPanel.SetActive(false);
         difficultyPanel.SetActive(true);
