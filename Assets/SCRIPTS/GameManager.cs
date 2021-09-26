@@ -148,19 +148,13 @@ public class GameManager : MonoBehaviour
                 }
                 if (PlayerInfo1.PJ == null && Input.GetKeyDown(KeyCode.W))
                 {
-                    PlayerInfo1 = new PlayerInfo(0, Player1);
-                    PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
-                    Player1.lado = Player.Lado.Izq;
-                    SetPosicion(PlayerInfo1);
+                    SetPlayer(0);
                 }
                 if (GameSettings.Instancia.playersCount == 2)
                 {
                     if (PlayerInfo2.PJ == null && Input.GetKeyDown(KeyCode.UpArrow))
                     {
-                        PlayerInfo2 = new PlayerInfo(1, Player2);
-                        PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
-                        Player2.lado = Player.Lado.Der;
-                        SetPosicion(PlayerInfo2);
+                        SetPlayer(1);
                     }
                 }
                 if (PlayerInfo1.PJ != null || PlayerInfo2.PJ != null)
@@ -190,7 +184,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (ConteoRedresivo)
                 {
-                    ConteoParaInicion -= T.GetDT();
+                    ConteoParaInicion -= Time.deltaTime;
                     if (ConteoParaInicion < 0)
                     {
                         EmpezarCarrera();
@@ -199,7 +193,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    TiempoDeJuego -= T.GetDT();
+                    TiempoDeJuego -= Time.deltaTime;
                 }
 
                 break;
@@ -209,6 +203,24 @@ public class GameManager : MonoBehaviour
                 if (TiempEspMuestraPts <= 0)
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 break;
+        }
+    }
+
+    public void SetPlayer(int playerId)
+    {
+        if (playerId == 0)
+        {
+            PlayerInfo1 = new PlayerInfo(0, Player1);
+            PlayerInfo1.LadoAct = Visualizacion.Lado.Izq;
+            Player1.lado = Player.Lado.Izq;
+            SetPosicion(PlayerInfo1);
+        }
+        else
+        {
+            PlayerInfo2 = new PlayerInfo(1, Player2);
+            PlayerInfo2.LadoAct = Visualizacion.Lado.Der;
+            Player2.lado = Player.Lado.Der;
+            SetPosicion(PlayerInfo2);
         }
     }
 
@@ -329,6 +341,10 @@ public class GameManager : MonoBehaviour
             PlayerInfo2.FinTuto2 = true;
         }
         if (PlayerInfo1.FinTuto2 && PlayerInfo2.FinTuto2)
+        {
+            CambiarACarrera();
+        }
+        else if (GameSettings.Instancia.playersCount == 1 && PlayerInfo1.FinTuto2)
         {
             CambiarACarrera();
         }

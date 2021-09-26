@@ -4,6 +4,24 @@ using System.Collections;
 public class ContrCalibracion : MonoBehaviour
 {
 	public Player Pj;
+
+    bool tutorialTerminado = false;
+    int faseTutorial = 0;
+    bool moving = false;
+    [SerializeField] Vector3[] pos;
+    [SerializeField] GameObject bolsa;
+    [SerializeField] Sprite[] images;
+    [SerializeField] SpriteRenderer image;
+    enum Teclas
+    {
+        ASDW,
+        FLECHAS
+    }
+
+    [SerializeField] Teclas t;
+
+    [SerializeField] GameObject[] botones;
+
 	/*
 	public string ManoIzqName = "Left Hand";
 	public string ManoDerName = "Right Hand";
@@ -49,50 +67,162 @@ public class ContrCalibracion : MonoBehaviour
 		
 		SetActivComp(false);
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+	void Update()
 	{
-		if(EstAct == ContrCalibracion.Estados.Tutorial)
-		{
-			if(Tempo2 < TiempEspCalib)
+		if (!tutorialTerminado)
+			switch (t)
 			{
-				Tempo2 += T.GetDT();
-				if(Tempo2 > TiempEspCalib)
-				{
-					 SetActivComp(true);
-				}
-			}
-		}
-		
-		/*
-		if(Calibrado)
-		{
-			if(Tempo2 < TiempEspCalib)
-			{
-				Tempo2 += Time.deltaTime;
-				if(Tempo2 > TiempEspCalib)
-				{
-					PrenderVolante();
-				}
-			}
-			
-			if(VolanteEncendido)
-			{
-				if(StayIzq && StayDer)
-				{
-					if(Tempo < TiempCalib)
+				case Teclas.ASDW:
+					if (!moving)
 					{
-						Tempo += Time.deltaTime;
-						if(Tempo > TiempCalib)
+						if (faseTutorial == 0)
 						{
-							FinCalibracion();
+							if (Input.GetKeyDown(KeyCode.W))
+							{
+								image.sprite = images[0];
+								bolsa.gameObject.SetActive(true);
+								faseTutorial = 1;
+							}
+						}
+						else if (faseTutorial == 1)
+						{
+							if (Input.GetKeyDown(KeyCode.A))
+							{
+								image.sprite = images[1];
+								faseTutorial = 2;
+								StartCoroutine(Move());
+							}
+						}
+						else if (faseTutorial == 2)
+						{
+							if (Input.GetKeyDown(KeyCode.S))
+							{
+								image.sprite = images[2];
+								faseTutorial = 3;
+							}
+						}
+						else if (faseTutorial == 3)
+						{
+							if (Input.GetKeyDown(KeyCode.D))
+							{
+								StartCoroutine(Move());
+								image.sprite = images[3];
+							}
 						}
 					}
-				}
+					break;
+				case Teclas.FLECHAS:
+					if (!moving)
+					{
+						if (faseTutorial == 0)
+						{
+							if (Input.GetKeyDown(KeyCode.UpArrow))
+							{
+								image.sprite = images[0];
+								bolsa.gameObject.SetActive(true);
+								faseTutorial = 1;
+							}
+						}
+						else if (faseTutorial == 1)
+						{
+							if (Input.GetKeyDown(KeyCode.LeftArrow))
+							{
+								image.sprite = images[1];
+								faseTutorial = 2;
+								StartCoroutine(Move());
+							}
+						}
+						else if (faseTutorial == 2)
+						{
+							if (Input.GetKeyDown(KeyCode.DownArrow))
+							{
+								image.sprite = images[2];
+								faseTutorial = 3;
+							}
+						}
+						else if (faseTutorial == 3)
+						{
+							if (Input.GetKeyDown(KeyCode.RightArrow))
+							{
+								StartCoroutine(Move());
+								image.sprite = images[3];
+							}
+						}
+					}
+					break;
 			}
+
+        if (EstAct == ContrCalibracion.Estados.Tutorial)
+        {
+            if (Tempo2 < TiempEspCalib)
+            {
+                Tempo2 += Time.deltaTime;
+                if (Tempo2 > TiempEspCalib)
+                {
+                    SetActivComp(true);
+                }
+            }
+        }
+	}
+	bool boton0tocado;
+	bool boton1tocado;
+	bool boton2tocado;
+	bool boton3tocado;
+	public void TocadoBoton(int b)
+	{
+		if (b == 0 && !boton0tocado)
+		{
+			image.sprite = images[0];
+			bolsa.gameObject.SetActive(true);
+			faseTutorial = 1;
+			boton0tocado = true;
+			botones[1].gameObject.SetActive(true);
 		}
-		*/
+		else if (b == 1 && !boton1tocado)
+		{
+			image.sprite = images[1];
+			faseTutorial = 2;
+			StartCoroutine(Move());
+			boton1tocado = true;
+			botones[2].gameObject.SetActive(true);
+		}
+		else if (b == 2 && !boton2tocado)
+		{
+			image.sprite = images[2];
+			faseTutorial = 3;
+			boton2tocado = true;
+			botones[3].gameObject.SetActive(true);
+		}
+		else if (b == 3 && !boton3tocado)
+		{
+			StartCoroutine(Move());
+			image.sprite = images[3];
+			boton3tocado = true;
+
+            GameManager.Instancia.SetPlayer(Pj.IdPlayer);
+			GameManager.Instancia.FinTutorial(Pj.IdPlayer);
+        }
+	}
+
+	IEnumerator Move()
+	{
+		moving = true;
+		while (bolsa.transform.position != pos[faseTutorial])
+		{
+			bolsa.transform.position = Vector3.MoveTowards(bolsa.transform.position, pos[faseTutorial], 100 * Time.deltaTime);
+			yield return null;
+		}
+		moving = false;
+
+		if (faseTutorial == 3)
+			tutorialTerminado = true;
+		StopCoroutine(Move());
+	}
+
+	public bool GetTutorialTerminado()
+	{
+		return tutorialTerminado;
 	}
 	/*
 	void OnTriggerStay(Collider coll)

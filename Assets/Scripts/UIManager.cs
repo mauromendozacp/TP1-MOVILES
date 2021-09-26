@@ -24,6 +24,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject[] botones;
     [SerializeField] GameObject[] sticks;
 
+    [SerializeField] TutorialManager tutorial;
+
     public enum Lado
     {
         Izq,
@@ -56,9 +58,9 @@ public class UIManager : MonoBehaviour
             if (botones[i] != null)
                 botones[i].SetActive(false);
 
-        #if UNITY_EDITOR
-        #elif UNITY_ANDROID || UNITY_IOS
-        if(mg.GetCantJugadores() == ManagerGameplay.CantJugadores.Dos) {
+#if UNITY_EDITOR
+#elif UNITY_ANDROID || UNITY_IOS
+        if(GameSettings.Instancia.playersCount == 2) {
             botones[0].SetActive(true);
             botones[3].SetActive(true);
         }
@@ -66,7 +68,7 @@ public class UIManager : MonoBehaviour
             botones[0].SetActive(true);
             botones[3].SetActive(false);
         }
-        #endif
+#endif
 
         Player.CambiadaPlata += PlataCambio;
         Player.DescargaSalida += SalidaDescarga;
@@ -120,5 +122,7 @@ public class UIManager : MonoBehaviour
     {
         for (int i = 0; i < UIGame.Length; i++)
             UIGame[i].SetActive(true);
+
+        tutorial.gameObject.SetActive(false);
     }
 }

@@ -31,17 +31,6 @@ public class MngPts : MonoBehaviour
 	
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.KeypadEnter) || 
-		   Input.GetKeyDown(KeyCode.Return) ||
-		   Input.GetKeyDown(KeyCode.Mouse0))
-		{
-            GameSettings.Instancia.ChangeScene(GameSettings.EstadoJuego2.Menu);
-		}
-        if(Input.GetKeyDown(KeyCode.Mouse1) ||
-           Input.GetKeyDown(KeyCode.Keypad0))
-		{
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-		}
         if(Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();

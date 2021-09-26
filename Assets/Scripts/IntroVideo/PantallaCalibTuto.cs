@@ -25,11 +25,11 @@ public class PantallaCalibTuto : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		switch(ContrCalib.EstAct)
+		/*switch(ContrCalib.EstAct)
 		{
 		case ContrCalibracion.Estados.Calibrando:
 			//pongase en posicion para iniciar
-			TempoIntCalib += T.GetDT();
+			TempoIntCalib += Time.deltaTime;
 			if(TempoIntCalib >= Intervalo)
 			{
 				TempoIntCalib = 0;
@@ -44,7 +44,7 @@ public class PantallaCalibTuto : MonoBehaviour
 			
 		case ContrCalibracion.Estados.Tutorial:
 			//tome la bolsa y depositela en el estante
-			TempoIntTuto += T.GetDT();
+			TempoIntTuto += Time.deltaTime;
 			if(TempoIntTuto >= Intervalo)
 			{
 				TempoIntTuto = 0;
@@ -62,7 +62,7 @@ public class PantallaCalibTuto : MonoBehaviour
 			GetComponent<Renderer>().material.mainTexture = ImaReady;
 			
 			break;
-		}
+		}*/
 			
 			
 	}

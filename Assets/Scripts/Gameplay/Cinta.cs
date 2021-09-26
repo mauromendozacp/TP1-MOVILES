@@ -25,7 +25,7 @@ public class Cinta : ManejoPallets
 	{
 		if(Encendida)
 		{
-			AnimTempo += T.GetDT();
+			AnimTempo += Time.deltaTime;
 			if(AnimTempo > Permanencia)
 			{
 				if(ModelCinta.GetComponent<Renderer>().material.color == ColorParpadeo)
@@ -51,9 +51,9 @@ public class Cinta : ManejoPallets
 				if(!Pallets[i].GetComponent<Pallet>().EnSmoot)
 				{
 					Pallets[i].GetComponent<Pallet>().enabled = false;
-					Pallets[i].TempoEnCinta += T.GetDT();
+					Pallets[i].TempoEnCinta += Time.deltaTime;
 					
-					Pallets[i].transform.position += transform.right * Velocidad * T.GetDT();
+					Pallets[i].transform.position += transform.right * Velocidad * Time.deltaTime;
 					Vector3 vAux = Pallets[i].transform.localPosition;
 					vAux.y = 3.61f;
 					Pallets[i].transform.localPosition = vAux;					

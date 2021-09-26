@@ -29,7 +29,7 @@ public class ContrTutorial : MonoBehaviour
 		{
 			if(Tempo < TiempTuto)
 			{
-				Tempo += T.GetDT();
+				Tempo += Time.deltaTime;
 				if(Tempo >= TiempTuto)
 				{
 					Finalizar();
